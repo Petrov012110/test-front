@@ -1,9 +1,17 @@
-<div [formGroup]="formIndustry">
-    <div *ngFor="let item of industryList">
+<div [formGroup]="formCompany">
+    <!-- <div *ngFor="let item of industryList">
         <label>
             <input formControlName="childControl" type="checkbox" value="{{item}}"/>
             {{item}}
         </label>
+    </div> -->
+    <div class="form-control" >
+        <input type="text" formControlName="inputControl">
     </div>
+    
+    <select class="custom-select"  formControlName="companyNameControl">
+        <option value="">Choose your city</option>
+        <option *ngFor="let item of industryList" [ngValue]="item">{{item}}</option>
+     </select>
 
 </div>

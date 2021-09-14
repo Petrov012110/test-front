@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { debounceTime } from 'rxjs/operators';
 import { ManagerService as ManagerService } from '../../services/maneger.service';
 
 @Component({
@@ -9,9 +10,9 @@ import { ManagerService as ManagerService } from '../../services/maneger.service
 })
 export class CompanyFilterComponent implements OnInit {
 
-    public formIndustry!: FormGroup;
-    public formTypes!: FormGroup;
+    public formCompany!: FormGroup;
     public industryList!: string[];
+
 
     constructor(private manager: ManagerService) {
         this.createForm();
@@ -22,39 +23,18 @@ export class CompanyFilterComponent implements OnInit {
             .subscribe(item => {
                 this.industryList = item;
             });
+
+        this.formCompany.get(['inputControl'])?.valueChanges
+            .pipe(
+                debounceTime(50)
+            )
+            .subscribe(el => this.manager.onInputValueEvent.next(el));
     }
 
     private createForm(): void {
-        this.formIndustry = new FormGroup({
-            childControl: new FormControl()
-            // fundRaisingControl: new FormControl(),
-            // computerHardwareControl: new FormControl(),
-            // commercialRealEstateControl: new FormControl(),
-            // publicSafetyControl: new FormControl(),
-            // governmentRelationsControl: new FormControl(),
-            // renewablesEnvironmentControl: new FormControl(),
-            // farmingControl: new FormControl(),
-            // designControl: new FormControl(),
-            // newspapersControl: new FormControl(),
-            // motionPicturesAndFilmControl: new FormControl(),
-            // packageFreightDeliveryControl: new FormControl(),
-            // telecommunicationsControl: new FormControl(),
-            // lawPracticeControl: new FormControl(),
-            // hospitalityControl: new FormControl(),
-            // investmentManagementControl: new FormControl(),
-            // photographyControl: new FormControl(),
-            // writingAndEditingControl: new FormControl(),
-            // railroadManufactureControl: new FormControl(),
-            // logisticsAndSupplyChainControl: new FormControl(),
-            // paperForestProductsControl: new FormControl(),
-            // importAndExportControl: new FormControl(),
-            // biotechnologyControl: new FormControl(),
-            // publicRelationsAndCommunicationsControl: new FormControl(),
-            // gamblingCasinosControl: new FormControl(),
-            // primarySecondaryEducationControl: new FormControl(),
-            // wirelessControl: new FormControl(),
-            // chemicalsControl: new FormControl(),
-            // informationTechnologyAndServicesControl: new FormControl(),
+        this.formCompany = new FormGroup({
+            inputControl: new FormControl(),
+            companyNameControl: new FormControl(),
 
         });
 

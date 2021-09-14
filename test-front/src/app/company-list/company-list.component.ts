@@ -12,10 +12,11 @@ import { ResourseCompanyService } from '../shared/services/resourse-company.serv
 export class CompanyListComponent implements OnInit {
 
     public companyList: CompanyModel[] = [];
+    public searchStr = '';
 
     constructor(
         private resourseCompany: ResourseCompanyService,
-        private maneger: ManagerService,
+        private manager: ManagerService,
         private filter: FilterService,
     ) { }
 
@@ -23,9 +24,11 @@ export class CompanyListComponent implements OnInit {
         this.resourseCompany.getData()
             .subscribe(item => {
                 this.companyList = item;
-                this.maneger.onTypesEvent.next(this.filter.getTypes(item));
-                this.maneger.onIndustriesEvent.next(this.filter.getIndustries(item));
+                this.manager.onTypesEvent.next(this.filter.getTypes(item));
+                this.manager.onIndustriesEvent.next(this.filter.getIndustries(item));
             });
+        this.manager.onInputValueEvent
+            .subscribe(value => this.searchStr = value);
     }
 
 

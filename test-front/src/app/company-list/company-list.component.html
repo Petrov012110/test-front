@@ -2,6 +2,6 @@
     <app-company-sort></app-company-sort>
     <app-company-filter></app-company-filter>
 </div>
-<div class="companies" *ngFor="let item of companyList">
+<div class="companies" *ngFor="let item of companyList | searchCompany:searchStr">
     <app-company-item [companyData]="item"></app-company-item>
 </div>

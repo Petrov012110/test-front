@@ -16,6 +16,7 @@ import { CompanySortComponent } from './shared/components/company-sort/company-s
 import { CompanyFilterComponent } from './shared/components/company-filter/company-filter.component';
 import { FilterService } from './shared/services/filter.service';
 import { ManagerService } from './shared/services/maneger.service';
+import { SearchPipe } from './shared/pipes/search.pipe';
 
 const components: any[] = [
   AppComponent,
@@ -24,7 +25,8 @@ const components: any[] = [
   CompanyDetailComponent,
   CompanyYandexMapComponent,
   CompanyComponent,
-  NavigationComponent
+  NavigationComponent,
+  SearchPipe
 ];
 
 const imports: any[] = [

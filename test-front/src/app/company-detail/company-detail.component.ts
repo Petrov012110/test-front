@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+import { ResourseCompanyService } from '../shared/services/resourse-company.service';
 
 @Component({
   selector: 'app-company-detail',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CompanyDetailComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private resourseCompany: ResourseCompanyService,
+    ) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
+    this.route.params.subscribe((param: Params) => {
+      
+    })
   }
+  
 
 }
