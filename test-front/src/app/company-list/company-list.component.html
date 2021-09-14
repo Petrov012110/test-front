@@ -1,5 +1,7 @@
-<div class="companies">
-    <app-company></app-company>
-    <app-company></app-company>
-    <app-company></app-company>
+<div class="filter">
+    <app-company-sort></app-company-sort>
+    <app-company-filter></app-company-filter>
+</div>
+<div class="companies" *ngFor="let item of companyList">
+    <app-company-item [companyData]="item"></app-company-item>
 </div>

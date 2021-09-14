@@ -1,0 +1,9 @@
+<div [formGroup]="formIndustry">
+    <div *ngFor="let item of industryList">
+        <label>
+            <input formControlName="childControl" type="checkbox" value="{{item}}"/>
+            {{item}}
+        </label>
+    </div>
+
+</div>
