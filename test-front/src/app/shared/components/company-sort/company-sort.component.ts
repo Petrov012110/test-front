@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { CompanySortEnum } from 'src/environments/enums';
+import { ManagerService } from '../../services/maneger.service';
 
 @Component({
     selector: 'app-company-sort',
@@ -11,7 +12,7 @@ export class CompanySortComponent implements OnInit {
 
     public form!: FormGroup;
 
-    constructor() {
+    constructor(private manager: ManagerService) {
         this.createForm();
     }
 
@@ -25,7 +26,6 @@ export class CompanySortComponent implements OnInit {
             typeControl: new FormControl(),
             industryControl: new FormControl(),
         });
-
     }
 
     public subscribtionControls(): void {
@@ -34,6 +34,7 @@ export class CompanySortComponent implements OnInit {
             if (selectItem) {
                 this.form.get(CompanySortEnum.typeControl)?.setValue(false);
                 this.form.get(CompanySortEnum.industryControl)?.setValue(false);
+                this.manager.onCompanySortEvent.next(CompanySortEnum.nameControl);
             }
         });
 
@@ -41,6 +42,7 @@ export class CompanySortComponent implements OnInit {
             if (selectItem) {
                 this.form.get(CompanySortEnum.nameControl)?.setValue(false);
                 this.form.get(CompanySortEnum.industryControl)?.setValue(false);
+                this.manager.onCompanySortEvent.next(CompanySortEnum.typeControl);
             }
         });
 
@@ -48,6 +50,7 @@ export class CompanySortComponent implements OnInit {
             if (selectItem) {
                 this.form.get(CompanySortEnum.nameControl)?.setValue(false);
                 this.form.get(CompanySortEnum.typeControl)?.setValue(false);
+                this.manager.onCompanySortEvent.next(CompanySortEnum.industryControl);
             }
         });
     }

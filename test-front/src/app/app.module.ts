@@ -17,6 +17,9 @@ import { CompanyFilterComponent } from './shared/components/company-filter/compa
 import { FilterService } from './shared/services/filter.service';
 import { ManagerService } from './shared/services/maneger.service';
 import { SearchPipe } from './shared/pipes/search.pipe';
+import { SortCompanyNamePipe } from './shared/pipes/sort-company.pipe';
+import { SortIndustryPipe } from './shared/pipes/sort-industry.pipe';
+import { SortTypePipe } from './shared/pipes/sort-type.pipe';
 
 const components: any[] = [
   AppComponent,
@@ -26,7 +29,12 @@ const components: any[] = [
   CompanyYandexMapComponent,
   CompanyComponent,
   NavigationComponent,
-  SearchPipe
+  SearchPipe,
+  SortCompanyNamePipe,
+  SortIndustryPipe,
+  SortTypePipe,
+  CompanySortComponent,
+  CompanyFilterComponent
 ];
 
 const imports: any[] = [
@@ -45,8 +53,6 @@ const providers: any[] = [
 @NgModule({
   declarations: [
     ...components,
-    CompanySortComponent,
-    CompanyFilterComponent
   ],
   imports: [
     ...imports

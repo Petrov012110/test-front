@@ -20,7 +20,7 @@ export class ResourseCompanyService implements OnDestroy {
     }
 
     public getData(): Observable<CompanyModel[]> {
-        return this.http.get<IResourseResponse[]>(`https://random-data-api.com/api/company/random_company?size=10`)
+        return this.http.get<IResourseResponse[]>(`https://random-data-api.com/api/company/random_company?size=50`)
             .pipe(
                 map((response: IResourseResponse[]) => {
                     const modelresponse = response.map(item => new CompanyModel(item));

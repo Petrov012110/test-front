@@ -13,6 +13,9 @@ export class CompanyListComponent implements OnInit {
 
     public companyList: CompanyModel[] = [];
     public searchStr = '';
+    public searchCompany = '';
+    public searchCompanyIndustry = '';
+    public searchCompanyType = '';
 
     constructor(
         private resourseCompany: ResourseCompanyService,
@@ -21,16 +24,46 @@ export class CompanyListComponent implements OnInit {
     ) { }
 
     public ngOnInit(): void {
+        this.getDataCompany();
+        this.getSearchStr();
+        this.getCompanySortValue();
+        this.getCompanyIndustryValue();
+        this.getCompanyTypeValue();
+    }
+
+    public getDataCompany(): void {
         this.resourseCompany.getData()
             .subscribe(item => {
                 this.companyList = item;
                 this.manager.onTypesEvent.next(this.filter.getTypes(item));
                 this.manager.onIndustriesEvent.next(this.filter.getIndustries(item));
             });
+    }
+
+    public getSearchStr(): void {
         this.manager.onInputValueEvent
             .subscribe(value => this.searchStr = value);
     }
 
+    public getCompanySortValue(): void {
+        this.manager.onCompanySortEvent
+            .subscribe(value => {
+                this.searchCompany = value;
+            });
+    }
 
+    public getCompanyIndustryValue(): void {
+        this.manager.onCompanyFilterIndustryEvent
+            .subscribe(value => {
+                this.searchCompanyIndustry = value;
+            });
+    }
+
+    public getCompanyTypeValue(): void {
+        this.manager.onCompanyFilterTypeEvent
+            .subscribe(value => {
+                this.searchCompanyType = value;
+            });
+    }
 
 }

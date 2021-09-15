@@ -2,16 +2,16 @@ import { Pipe, PipeTransform } from "@angular/core";
 import { CompanyModel } from "../models/company.model";
 
 @Pipe({
-    name: 'searchCompany'
+    name: 'sortIndustry'
 })
-export class SearchPipe implements PipeTransform {
+export class SortIndustryPipe implements PipeTransform{
     public transform(company: CompanyModel[], search = ''): CompanyModel[] {
+
         if (!search.trim()) {
             return company;
         }
 
-        return company.filter(item => {
-            return item.businessName.toLocaleLowerCase().includes(search.toLocaleLowerCase());
-        });
+        return company.filter(item => item.industry === search);
+
     }
 }

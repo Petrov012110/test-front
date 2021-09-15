@@ -3,3 +3,9 @@ export enum CompanySortEnum {
     typeControl = 'typeControl',
     industryControl = 'industryControl',
 }
+
+export enum CompanyFilterEnum {
+    inputControl = 'inputControl',
+    companyIndustryControl = 'companyIndustryControl',
+    companyTypeControl = 'companyTypeControl'
+}
