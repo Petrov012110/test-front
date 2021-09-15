@@ -1,15 +1,12 @@
 <div class="company">
     <div class="header">
-        <h1>Company name</h1>
+        <h1>{{companyObject.businessName}}</h1>
         <button routerLink="/" class="btn btn-link">Назад</button>
     </div>
     <div class="info">
-        <strong>
-            Company name
-        </strong>
-        <p>Адрес</p>
-        <p>suffix</p>
-        <p>industry</p>
-        <p>catch_phrase</p>
+        <p>{{companyObject.industry}}</p>
+        <p>{{companyObject.type}}</p>
+        <p>{{companyObject.full_address}}</p>
+        <img class="image-company" src="{{companyObject.logo}}">
     </div>
 </div>

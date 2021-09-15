@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { CompanyModel } from '../shared/models/company.model';
 import { ResourseCompanyService } from '../shared/services/resourse-company.service';
 
 @Component({
@@ -9,15 +10,19 @@ import { ResourseCompanyService } from '../shared/services/resourse-company.serv
 })
 export class CompanyDetailComponent implements OnInit {
 
+  public companyObject!: CompanyModel;
+
   constructor(
-    private route: ActivatedRoute,
-    private resourseCompany: ResourseCompanyService,
-    ) { }
+    private _route: Router,
+    ) {
+      const navigation = this._route.getCurrentNavigation();
+      if(navigation && navigation.extras?.state) {
+        this.companyObject = navigation.extras?.state as CompanyModel;
+      }
+     }
 
   public ngOnInit(): void {
-    this.route.params.subscribe((param: Params) => {
-      
-    })
+
   }
   
 
