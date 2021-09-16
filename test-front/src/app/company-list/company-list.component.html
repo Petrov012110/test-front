@@ -2,11 +2,24 @@
     <app-company-sort></app-company-sort>
     <app-company-filter></app-company-filter>
 </div>
+
+<!-- <cdk-virtual-scroll-viewport itemSize="10">
+    <div class="companies" *cdkVirtualFor="let item of companyList 
+                                                | searchCompany:searchStr 
+                                                | sortCompany:searchCompany 
+                                                | sortIndustry:searchCompanyIndustry
+                                                | sortType:searchCompanyType;
+                                                let idx = index"
+                                                >
+        <app-company-item [companyData]="item"></app-company-item>
+    </div>
+</cdk-virtual-scroll-viewport> -->
 <div class="companies" *ngFor="let item of companyList 
-                                            | searchCompany:searchStr 
-                                            | sortCompany:searchCompany 
-                                            | sortIndustry:searchCompanyIndustry
-                                            | sortType:searchCompanyType"
-                                            >
+                                                    | searchCompany:searchStr 
+                                                    | sortCompany:searchCompany 
+                                                    | sortIndustry:searchCompanyIndustry
+                                                    | sortType:searchCompanyType;
+                                                    let idx = index"
+                                                    >
     <app-company-item [companyData]="item"></app-company-item>
 </div>
