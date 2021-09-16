@@ -8,6 +8,8 @@ export class CompanyModel {
     public type!: string;
     public id!: number;
     public full_address!: string;
+    public latitude!: number;
+    public longitude!: number;
 
     constructor(data: IResourseResponse) {
 
@@ -18,6 +20,8 @@ export class CompanyModel {
             this.type = data.type;
             this.id = data.id;
             this.full_address = data.full_address;
+            this.latitude = data.latitude;
+            this.longitude = data.longitude;
         }
 
     }

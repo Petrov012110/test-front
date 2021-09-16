@@ -20,8 +20,9 @@ import { SearchPipe } from './shared/pipes/search.pipe';
 import { SortCompanyNamePipe } from './shared/pipes/sort-company.pipe';
 import { SortIndustryPipe } from './shared/pipes/sort-industry.pipe';
 import { SortTypePipe } from './shared/pipes/sort-type.pipe';
-import { ScrollingModule } from '@angular/cdk/scrolling';
+
 import { YandexMapService } from './shared/services/yandex-map.service';
+import { LocalStorageService } from './shared/services/local-storage.service';
 
 const components: any[] = [
   AppComponent,
@@ -45,14 +46,15 @@ const imports: any[] = [
   HttpClientModule,
   FormsModule,
   ReactiveFormsModule,
-  ScrollingModule
+
 ];
 
 const providers: any[] = [
   ResourseCompanyService,
   FilterService,
   ManagerService,
-  YandexMapService
+  YandexMapService,
+  LocalStorageService
 ];
 @NgModule({
   declarations: [

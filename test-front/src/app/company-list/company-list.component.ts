@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyModel } from '../shared/models/company.model';
 import { FilterService } from '../shared/services/filter.service';
+import { LocalStorageService } from '../shared/services/local-storage.service';
 import { ManagerService } from '../shared/services/maneger.service';
 import { ResourseCompanyService } from '../shared/services/resourse-company.service';
 
@@ -21,6 +22,7 @@ export class CompanyListComponent implements OnInit {
         private resourseCompany: ResourseCompanyService,
         private manager: ManagerService,
         private filter: FilterService,
+        private storage: LocalStorageService
     ) { }
 
     public ngOnInit(): void {
@@ -37,6 +39,7 @@ export class CompanyListComponent implements OnInit {
                 this.companyList = item;
                 this.manager.onTypesEvent.next(this.filter.getTypes(item));
                 this.manager.onIndustriesEvent.next(this.filter.getIndustries(item));
+                this.storage.setCompanyToLocalStorage(item);
             });
     }
 
