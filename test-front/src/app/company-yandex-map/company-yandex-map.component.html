@@ -1,12 +1,8 @@
-
-
-
-
-    <div id="map" style="width: 600px; height: 400px"></div>
-<div>
-    <ul *ngFor="let company of arrCompany">
-        <li>{{company.text}}</li>
-    </ul>
+<div class="map-wrapper">
+    <div id="map" style="width: 600px; height: 400px;"></div>
+    <cdk-virtual-scroll-viewport itemSize="10" class="scroll">
+        <ul *ngFor="let company of arrCompany">
+            <li>{{company.text}}</li>
+        </ul>
+    </cdk-virtual-scroll-viewport>
 </div>
-
-
