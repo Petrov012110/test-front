@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, OnInit } from "@angular/core";
 import { IPoints } from "../models/points.model";
 
 declare var ymaps: any;
@@ -7,9 +7,10 @@ declare var ymaps: any;
 })
 export class YandexMapService {
 
-    public coords: number[] = [0, 0];
+    public coords = [0, 0];
 
     constructor() {
+
     }
 
     /**
