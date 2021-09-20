@@ -4,6 +4,10 @@ import { CompanyModel } from "../models/company.model";
 
 @Injectable()
 export class LocalStorageService {
+    
+    /**
+     * Работа с LocalStorage, сохранем и возвращаем данные из LS
+     */
 
     public setCompanyToLocalStorage(company: CompanyModel[]): void {
         localStorage.setItem('companyHistory', JSON.stringify(company));

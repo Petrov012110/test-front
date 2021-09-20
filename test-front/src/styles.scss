@@ -212,7 +212,7 @@ img {
 .form-control {
   display: block;
   color: #888;
-  margin-bottom: .8rem;
+  margin-bottom: 20px;
 
   &.invalid {
     color: var(--primary-color);
@@ -233,7 +233,7 @@ input[type='date'],
 select,
 textarea {
   display: block;
-  width: 100%;
+  width: 40%;
   padding: 0.4rem;
   font-size: 1.2rem;
   border: 1px solid #ccc;

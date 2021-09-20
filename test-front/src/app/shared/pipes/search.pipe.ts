@@ -5,6 +5,7 @@ import { CompanyModel } from "../models/company.model";
     name: 'searchCompany'
 })
 export class SearchPipe implements PipeTransform {
+    
     public transform(company: CompanyModel[], search = ''): CompanyModel[] {
         if (!search.trim()) {
             return company;

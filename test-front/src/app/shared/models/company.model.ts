@@ -7,7 +7,7 @@ export class CompanyModel {
     public industry!: string;
     public type!: string;
     public id!: number;
-    public full_address!: string;
+    public fullAddress!: string;
     public latitude!: number;
     public longitude!: number;
 
@@ -19,7 +19,7 @@ export class CompanyModel {
             this.industry = data.industry;
             this.type = data.type;
             this.id = data.id;
-            this.full_address = data.full_address;
+            this.fullAddress = data.full_address;
             this.latitude = data.latitude;
             this.longitude = data.longitude;
         }

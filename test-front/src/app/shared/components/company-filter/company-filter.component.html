@@ -1,17 +1,23 @@
 <div [formGroup]="formCompanyFilter">
-
-    <div class="form-control">
-        <input type="text" formControlName="inputControl">
+    <div class="form-block">
+        <span>Поиск по названию</span>
+        <div class="form-control">
+            <input type="text" formControlName="inputControl">
+        </div>
     </div>
-
-    <select class="custom-select" formControlName="companyIndustryControl">
-        <option value="">Choose industry</option>
-        <option *ngFor="let item of industryList" [ngValue]="item">{{item}}</option>
-    </select>
-
-    <select class="custom-select" formControlName="companyTypeControl">
-        <option value="">Choose type</option>
-        <option *ngFor="let item of typeList" [ngValue]="item">{{item}}</option>
-    </select>
+    <div class="form-block">
+        <span>Сфера деятельности:</span>
+        <select class="custom-select" formControlName="companyIndustryControl">
+            <option value="">Choose industry</option>
+            <option *ngFor="let item of industryList" [ngValue]="item">{{item}}</option>
+        </select>
+    </div>
+    <div class="form-block">
+        <span>Тип:</span>        
+        <select class="custom-select" formControlName="companyTypeControl">
+            <option value="">Choose type</option>
+            <option *ngFor="let item of typeList" [ngValue]="item">{{item}}</option>
+        </select>
+    </div>
 
 </div>

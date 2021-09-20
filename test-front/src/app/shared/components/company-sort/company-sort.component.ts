@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { CompanySortEnum } from 'src/environments/enums';
+
+import { CompanySortEnum } from '../../enums/sort.enum';
 import { ManagerService } from '../../services/maneger.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class CompanySortComponent implements OnInit {
 
     public form!: FormGroup;
 
-    constructor(private manager: ManagerService) {
+    constructor(private _manager: ManagerService) {
         this.createForm();
     }
 
@@ -20,21 +21,17 @@ export class CompanySortComponent implements OnInit {
         this.subscribtionControls();
     }
 
-    private createForm(): void {
-        this.form = new FormGroup({
-            nameControl: new FormControl(),
-            typeControl: new FormControl(),
-            industryControl: new FormControl(),
-        });
-    }
-
+    /**
+     * Подписка на контролы для того чтобы отслеживать их значения, которые необходимы для фильтров
+     * сразу же осуществляется передача полученных значений через сервис manager
+     */
     public subscribtionControls(): void {
 
         this.form.get(CompanySortEnum.nameControl)?.valueChanges.subscribe(selectItem => {
             if (selectItem) {
                 this.form.get(CompanySortEnum.typeControl)?.setValue(false);
                 this.form.get(CompanySortEnum.industryControl)?.setValue(false);
-                this.manager.onCompanySortEvent.next(CompanySortEnum.nameControl);
+                this._manager.onCompanySortEvent$.next(CompanySortEnum.nameControl);
             }
         });
 
@@ -42,7 +39,7 @@ export class CompanySortComponent implements OnInit {
             if (selectItem) {
                 this.form.get(CompanySortEnum.nameControl)?.setValue(false);
                 this.form.get(CompanySortEnum.industryControl)?.setValue(false);
-                this.manager.onCompanySortEvent.next(CompanySortEnum.typeControl);
+                this._manager.onCompanySortEvent$.next(CompanySortEnum.typeControl);
             }
         });
 
@@ -50,8 +47,16 @@ export class CompanySortComponent implements OnInit {
             if (selectItem) {
                 this.form.get(CompanySortEnum.nameControl)?.setValue(false);
                 this.form.get(CompanySortEnum.typeControl)?.setValue(false);
-                this.manager.onCompanySortEvent.next(CompanySortEnum.industryControl);
+                this._manager.onCompanySortEvent$.next(CompanySortEnum.industryControl);
             }
+        });
+    }
+
+    private createForm(): void {
+        this.form = new FormGroup({
+            nameControl: new FormControl(),
+            typeControl: new FormControl(),
+            industryControl: new FormControl(),
         });
     }
 

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+
 import { IPoints, Points } from '../shared/models/points.model';
+import { CacheService } from '../shared/services/cache.service';
 import { LocalStorageService } from '../shared/services/local-storage.service';
-import { ResourseCompanyService } from '../shared/services/resourse-company.service';
+import { ManagerService } from '../shared/services/maneger.service';
 import { YandexMapService } from '../shared/services/yandex-map.service';
 
 @Component({
@@ -15,11 +17,11 @@ export class CompanyYandexMapComponent implements OnInit {
 
     constructor(
         private _mapLoaderService: YandexMapService,
-        private storage: LocalStorageService,
-        private _resourseCompany: ResourseCompanyService
+        private _storage: LocalStorageService,
+        private _cache: CacheService,
+        private _manager: ManagerService,
     ) {
-        this.getDataCompany();
-        //getCompany(): 
+        this.getCompanyLocalStorage();
     }
 
     public ngOnInit(): void {
@@ -29,8 +31,8 @@ export class CompanyYandexMapComponent implements OnInit {
     /**
      * Реализация через LocalStorage
      */
-    public getCompany(): void {
-        this.storage.getCompanyFromLocalStorage().subscribe(data => {
+    public getCompanyLocalStorage(): void {
+        this._storage.getCompanyFromLocalStorage().subscribe(data => {
             data.forEach(element => {
                 this.arrCompany.push(new Points(element));
             });
@@ -40,11 +42,16 @@ export class CompanyYandexMapComponent implements OnInit {
     /**
      * Реализация через кэш
      */
-    public getDataCompany(): void {
-        this._resourseCompany.getData()
+    public getCompanyCache(): void {
+        this._cache.getData()
             .subscribe(item => {
                 item.forEach(element => this.arrCompany.push(new Points(element)));
             });
     }
+
+    public getValue(e: IPoints): void {
+        this._manager.onCoordsEvent$.next(e);
+    }
+
 
 }

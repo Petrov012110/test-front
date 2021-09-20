@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
 import { CompanyModel } from '../shared/models/company.model';
+import { CacheService } from '../shared/services/cache.service';
 import { FilterService } from '../shared/services/filter.service';
 import { LocalStorageService } from '../shared/services/local-storage.service';
 import { ManagerService } from '../shared/services/maneger.service';
@@ -19,51 +21,85 @@ export class CompanyListComponent implements OnInit {
     public searchCompanyType = '';
 
     constructor(
-        private resourseCompany: ResourseCompanyService,
-        private manager: ManagerService,
-        private filter: FilterService,
-        private storage: LocalStorageService
+        private _resourse: ResourseCompanyService,
+        private _manager: ManagerService,
+        private _filter: FilterService,
+        private _storage: LocalStorageService,
+        private _cache: CacheService,
     ) { }
 
     public ngOnInit(): void {
-        this.getDataCompany();
+        this.getDataCompanyLocalStorage();
         this.getSearchStr();
         this.getCompanySortValue();
         this.getCompanyIndustryValue();
         this.getCompanyTypeValue();
     }
 
-    public getDataCompany(): void {
-        this.resourseCompany.getData()
+    /**
+     * 1) Стандартный запрос, без сохранения в КЭШ
+     * 2) Подписки на список типов и сфер деятельности компаний для фильта
+     * 3) Сохранение ответа с сервера в LocalStorage
+     */
+    public getDataCompanyLocalStorage(): void {
+        this._resourse.getData()
             .subscribe(item => {
                 this.companyList = item;
-                this.manager.onTypesEvent.next(this.filter.getTypes(item));
-                this.manager.onIndustriesEvent.next(this.filter.getIndustries(item));
-                this.storage.setCompanyToLocalStorage(item);
+                this._manager.onTypesEvent$.next(this._filter.getTypes(item));
+                this._manager.onIndustriesEvent$.next(this._filter.getIndustries(item));
+                this._storage.setCompanyToLocalStorage(item);
             });
     }
 
+    /**
+     * 1) Запрос ссохранением в КЭШ
+     * 2) Подписки на список типов и сфер деятельности компаний для фильта
+     */
+    public getDataCompanyCache(): void {
+        this._cache.getData()
+            .subscribe(item => {
+                this.companyList = item;
+                this._manager.onTypesEvent$.next(this._filter.getTypes(item));
+                this._manager.onIndustriesEvent$.next(this._filter.getIndustries(item));
+            });
+    }
+
+    /**
+     * Метод для получения строки, необходиомй для поиска по названиям компании 
+     */
     public getSearchStr(): void {
-        this.manager.onInputValueEvent
+        this._manager.onInputValueEvent$
             .subscribe(value => this.searchStr = value);
     }
 
+    /**
+     * Метод, котрый получает знчения чекбоксов: Название, Тип, Вид деятельности
+     * по полученным значения сортируем наш список компаний
+     */
     public getCompanySortValue(): void {
-        this.manager.onCompanySortEvent
+        this._manager.onCompanySortEvent$
             .subscribe(value => {
                 this.searchCompany = value;
             });
     }
 
+    /**
+     * Метод, подписывающийся на значения видов деятельностей компаний (industry)
+     * данные мы получаем из ответа с сервера
+     */
     public getCompanyIndustryValue(): void {
-        this.manager.onCompanyFilterIndustryEvent
+        this._manager.onCompanyFilterIndustryEvent$
             .subscribe(value => {
                 this.searchCompanyIndustry = value;
             });
     }
 
+    /**
+     * Метод, подписывающийся на значения типов компаний (type)
+     * данные мы получаем из ответа с сервера
+     */
     public getCompanyTypeValue(): void {
-        this.manager.onCompanyFilterTypeEvent
+        this._manager.onCompanyFilterTypeEvent$
             .subscribe(value => {
                 this.searchCompanyType = value;
             });

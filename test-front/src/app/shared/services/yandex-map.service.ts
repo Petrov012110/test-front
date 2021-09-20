@@ -6,9 +6,16 @@ declare var ymaps: any;
     providedIn: 'root'
 })
 export class YandexMapService {
+
+    public coords: number[] = [0, 0];
+
     constructor() {
     }
 
+    /**
+     * Создает ЯндексКарту
+     * @param myPoints - полученные координаты
+     */
     public getMap(myPoints: IPoints[]): void {
 
         const scriptYmaps = document.createElement('script');
@@ -17,7 +24,7 @@ export class YandexMapService {
 
         const createMap = () => {
             const myMap = new ymaps.Map('map', {
-                center: [0, 0],
+                center: this.coords,
                 zoom: 2,
                 controls: ['zoomControl']
             });

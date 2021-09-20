@@ -1,29 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Router } from '@angular/router';
+
 import { CompanyModel } from '../shared/models/company.model';
-import { ResourseCompanyService } from '../shared/services/resourse-company.service';
 
 @Component({
-  selector: 'app-company-detail',
-  templateUrl: './company-detail.component.html',
-  styleUrls: ['./styles/company-detail.component.scss']
+    selector: 'app-company-detail',
+    templateUrl: './company-detail.component.html',
+    styleUrls: ['./styles/company-detail.component.scss']
 })
-export class CompanyDetailComponent implements OnInit {
+export class CompanyDetailComponent {
 
-  public companyObject!: CompanyModel;
+    public companyObject!: CompanyModel;
 
-  constructor(
-    private _route: Router,
-    ) {
-      const navigation = this._route.getCurrentNavigation();
-      if(navigation && navigation.extras?.state) {
-        this.companyObject = navigation.extras?.state as CompanyModel;
-      }
-     }
+    constructor(private _route: Router) {
+        /**
+         * Получаю  объект в данный компонент через роут
+         */
+        const navigation = this._route.getCurrentNavigation();
 
-  public ngOnInit(): void {
+        if (navigation && navigation.extras?.state) {
+            this.companyObject = navigation.extras?.state as CompanyModel;
+        }
 
-  }
-  
+    }
 
 }

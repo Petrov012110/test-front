@@ -4,9 +4,10 @@ import { CompanyModel } from "../models/company.model";
 @Injectable()
 export class FilterService {
 
-    constructor() {
-
-    }
+    /**
+     * @param data - массив моделей компаний
+     * @returns - массив уникальных типов компаний
+     */
 
     public getTypes(data: CompanyModel[]): string[] {
         const typeArr = data.map(item => item.type);
@@ -14,6 +15,11 @@ export class FilterService {
 
         return uniqTypeArr;
     }
+
+    /**
+     * @param data - массив моделей компаний
+     * @returns - массив уникальных сфер деятельностей компаний
+     */
 
     public getIndustries(data: CompanyModel[]): string[] {
         const industryArr = data.map(item => item.industry);
@@ -23,6 +29,7 @@ export class FilterService {
     }
 
     public unique(arr: string[]): string[] {
+
         const result: string[] = [];
 
         for (const str of arr) {
