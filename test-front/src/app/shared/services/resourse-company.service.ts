@@ -31,8 +31,7 @@ export class ResourseCompanyService implements OnDestroy {
                 map((response: IResourseResponse[]) => {
                     const modelresponse = response.map(item => new CompanyModel(item));
                     return modelresponse;
-                }),
-                takeUntil(this._unsubscriber$)
+                })
             )
     }
 

@@ -8,18 +8,12 @@ import { CompanyModel } from "../models/company.model";
 import { IResourseResponse } from "../models/resourse-company.response-model.interface";
 
 @Injectable()
-export class CacheService implements OnDestroy {
+export class CacheService  {
 
-    private _unsubscriber$: Subject<void> = new Subject<void>();
     private _instanceCache$ = new Map<string, Observable<CompanyModel[]>>();
 
     constructor(private _http: HttpClient) {
 
-    }
-
-    public ngOnDestroy(): void {
-        this._unsubscriber$.next();
-        this._unsubscriber$.complete();
     }
 
     /**
@@ -37,8 +31,7 @@ export class CacheService implements OnDestroy {
                         return modelresponse;
                     }),
                     publishReplay(1),
-                    refCount(),
-                    takeUntil(this._unsubscriber$)
+                    refCount()
                 );
 
             this._instanceCache$.set(key, response);

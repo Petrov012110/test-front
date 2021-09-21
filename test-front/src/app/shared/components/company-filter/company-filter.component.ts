@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Subject } from 'rxjs';
 
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, takeUntil } from 'rxjs/operators';
 
 import { CompanyFilterEnum } from '../../enums/filter.enum';
-import { ManagerService as ManagerService } from '../../services/maneger.service';
+import { ManagerService as ManagerService } from '../../services/manager.service';
 
 @Component({
     selector: 'app-company-filter',
@@ -18,6 +19,8 @@ export class CompanyFilterComponent implements OnInit {
     public typeList!: string[];
     public industryValue!: string;
     public coords: number[] = [0, 0];
+    private _unsubscriber$: Subject<void> = new Subject<void>();
+
 
     constructor(private _manager: ManagerService) {
         this.createForm();
@@ -31,11 +34,19 @@ export class CompanyFilterComponent implements OnInit {
         this.subscriptionIndustryControl();
     }
 
+    public ngOnDestroy(): void {
+        this._unsubscriber$.next();
+        this._unsubscriber$.complete();
+    }
+
     /**
      * Получение списка сфер деятельностей компаней (industry) для контрола companyIndustryControl
      */
     public getIndustryList(): void {
         this._manager.onIndustriesEvent$
+            .pipe(
+                takeUntil(this._unsubscriber$)
+            )
             .subscribe(item => {
                 if (item) {
                     this.industryList = item.sort();
@@ -49,6 +60,9 @@ export class CompanyFilterComponent implements OnInit {
      */
     public getTypeList(): void {
         this._manager.onTypesEvent$
+            .pipe(
+                takeUntil(this._unsubscriber$)
+            )
             .subscribe(item => {
                 this.typeList = item.sort();
             });

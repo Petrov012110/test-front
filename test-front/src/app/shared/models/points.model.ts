@@ -1,9 +1,5 @@
 import { CompanyModel } from "./company.model";
-
-export interface IPoints {
-    coords: number[];
-    text: string;
-}
+import { IPoints } from './points.model.interface';
 
 export class Points implements IPoints {
     public coords: number[] = [];

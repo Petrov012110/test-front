@@ -1,5 +1,6 @@
 import { Injectable, OnInit } from "@angular/core";
-import { IPoints } from "../models/points.model";
+import { IPoints } from '../models/points.model.interface';
+
 
 declare var ymaps: any;
 @Injectable({
@@ -8,10 +9,6 @@ declare var ymaps: any;
 export class YandexMapService {
 
     public coords = [0, 0];
-
-    constructor() {
-
-    }
 
     /**
      * Создает ЯндексКарту

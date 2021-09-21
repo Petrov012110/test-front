@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { CompanyModel } from '../shared/models/company.model';
 import { CacheService } from '../shared/services/cache.service';
 import { FilterService } from '../shared/services/filter.service';
 import { LocalStorageService } from '../shared/services/local-storage.service';
-import { ManagerService } from '../shared/services/maneger.service';
+import { ManagerService } from '../shared/services/manager.service';
 import { ResourseCompanyService } from '../shared/services/resourse-company.service';
 
 @Component({
@@ -12,13 +14,15 @@ import { ResourseCompanyService } from '../shared/services/resourse-company.serv
     templateUrl: './company-list.component.html',
     styleUrls: ['./styles/company-list.component.scss']
 })
-export class CompanyListComponent implements OnInit {
+export class CompanyListComponent implements OnInit, OnDestroy {
 
     public companyList: CompanyModel[] = [];
     public searchStr = '';
     public searchCompany = '';
     public searchCompanyIndustry = '';
     public searchCompanyType = '';
+    private _unsubscriber$: Subject<void> = new Subject<void>();
+
 
     constructor(
         private _resourse: ResourseCompanyService,
@@ -36,6 +40,11 @@ export class CompanyListComponent implements OnInit {
         this.getCompanyTypeValue();
     }
 
+    public ngOnDestroy(): void {
+        this._unsubscriber$.next();
+        this._unsubscriber$.complete();
+    }
+
     /**
      * 1) Стандартный запрос, без сохранения в КЭШ
      * 2) Подписки на список типов и сфер деятельности компаний для фильта
@@ -43,6 +52,9 @@ export class CompanyListComponent implements OnInit {
      */
     public getDataCompanyLocalStorage(): void {
         this._resourse.getData()
+            .pipe(
+                takeUntil(this._unsubscriber$)
+            )
             .subscribe(item => {
                 this.companyList = item;
                 this._manager.onTypesEvent$.next(this._filter.getTypes(item));
@@ -57,6 +69,9 @@ export class CompanyListComponent implements OnInit {
      */
     public getDataCompanyCache(): void {
         this._cache.getData()
+            .pipe(
+                takeUntil(this._unsubscriber$)
+            )
             .subscribe(item => {
                 this.companyList = item;
                 this._manager.onTypesEvent$.next(this._filter.getTypes(item));
@@ -69,6 +84,9 @@ export class CompanyListComponent implements OnInit {
      */
     public getSearchStr(): void {
         this._manager.onInputValueEvent$
+            .pipe(
+                takeUntil(this._unsubscriber$)
+            )
             .subscribe(value => this.searchStr = value);
     }
 
@@ -78,7 +96,9 @@ export class CompanyListComponent implements OnInit {
      */
     public getCompanySortValue(): void {
         this._manager.onCompanySortEvent$
-            .subscribe(value => {
+            .pipe(
+                takeUntil(this._unsubscriber$)
+            ).subscribe(value => {
                 this.searchCompany = value;
             });
     }
@@ -89,7 +109,9 @@ export class CompanyListComponent implements OnInit {
      */
     public getCompanyIndustryValue(): void {
         this._manager.onCompanyFilterIndustryEvent$
-            .subscribe(value => {
+            .pipe(
+                takeUntil(this._unsubscriber$)
+            ).subscribe(value => {
                 this.searchCompanyIndustry = value;
             });
     }
@@ -100,7 +122,9 @@ export class CompanyListComponent implements OnInit {
      */
     public getCompanyTypeValue(): void {
         this._manager.onCompanyFilterTypeEvent$
-            .subscribe(value => {
+            .pipe(
+                takeUntil(this._unsubscriber$)
+            ).subscribe(value => {
                 this.searchCompanyType = value;
             });
     }

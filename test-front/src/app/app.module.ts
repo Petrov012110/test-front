@@ -16,7 +16,7 @@ import { ResourseCompanyService } from './shared/services/resourse-company.servi
 import { CompanySortComponent } from './shared/components/company-sort/company-sort.component';
 import { CompanyFilterComponent } from './shared/components/company-filter/company-filter.component';
 import { FilterService } from './shared/services/filter.service';
-import { ManagerService } from './shared/services/maneger.service';
+import { ManagerService } from './shared/services/manager.service';
 import { SearchPipe } from './shared/pipes/search.pipe';
 import { SortCompanyNamePipe } from './shared/pipes/sort-company.pipe';
 import { SortIndustryPipe } from './shared/pipes/sort-industry.pipe';

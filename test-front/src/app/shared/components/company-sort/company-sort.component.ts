@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { CompanySortEnum } from '../../enums/sort.enum';
-import { ManagerService } from '../../services/maneger.service';
+import { ManagerService } from '../../services/manager.service';
 
 @Component({
     selector: 'app-company-sort',

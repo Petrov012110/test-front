@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
-import { IPoints } from "../models/points.model";
+import { IPoints } from '../models/points.model.interface';
+
 
 @Injectable()
 export class ManagerService {
@@ -11,6 +12,5 @@ export class ManagerService {
     public onCompanySortEvent$: Subject<string> = new Subject<string>();
     public onCompanyFilterIndustryEvent$: Subject<string> = new Subject<string>();
     public onCompanyFilterTypeEvent$: Subject<string> = new Subject<string>();
-    public onCoordsEvent$: Subject<IPoints> = new Subject<IPoints>();
 
 }
