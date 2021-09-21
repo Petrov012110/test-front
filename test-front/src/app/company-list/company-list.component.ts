@@ -33,7 +33,7 @@ export class CompanyListComponent implements OnInit, OnDestroy {
     ) { }
 
     public ngOnInit(): void {
-        this.getDataCompanyLocalStorage();
+        this.getDataCompanyCache();
         this.getSearchStr();
         this.getCompanySortValue();
         this.getCompanyIndustryValue();

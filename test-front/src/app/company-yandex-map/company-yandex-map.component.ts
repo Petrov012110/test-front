@@ -24,7 +24,7 @@ export class CompanyYandexMapComponent implements OnInit, OnDestroy {
         private _storage: LocalStorageService,
         private _cache: CacheService,
     ) {
-        this.getCompanyLocalStorage();
+        this.getCompanyCache();
     }
 
     public ngOnInit(): void {
