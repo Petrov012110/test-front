@@ -1,4 +1,5 @@
-import { IPoints } from "./points.model";
+import { IPoints } from './points.model.interface';
+
 
 export class CustomSearchProvider {
     public points: IPoints[] = [];

@@ -64,7 +64,9 @@ export class CompanyFilterComponent implements OnInit {
                 takeUntil(this._unsubscriber$)
             )
             .subscribe(item => {
-                this.typeList = item.sort();
+                if(item) {
+                    this.typeList = item.sort();
+                }
             });
     }
 
